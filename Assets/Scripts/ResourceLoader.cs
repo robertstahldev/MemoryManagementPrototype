@@ -44,9 +44,8 @@ public class ResourceLoader : MonoBehaviour
                 Quaternion.identity
             );
 
-            Renderer renderer = spawnedObject.GetComponent<Renderer>();
-
-            if (renderer != null)
+            
+            if (spawnedObject.TryGetComponent<Renderer>(out var renderer))
                 originalMaterial = renderer.sharedMaterial;
 
             //Apply the texture if it was loaded before the model.
@@ -114,9 +113,8 @@ public class ResourceLoader : MonoBehaviour
         if (loadedTexture == null || spawnedObject == null)
             return;
 
-        Renderer renderer = spawnedObject.GetComponent<Renderer>();
 
-        if (renderer == null)
+        if (!spawnedObject.TryGetComponent<Renderer>(out var renderer))
             return;
 
         if (runtimeMaterial == null)
@@ -153,9 +151,8 @@ public class ResourceLoader : MonoBehaviour
 
         if (spawnedObject != null)
         {
-            Renderer renderer = spawnedObject.GetComponent<Renderer>();
-
-            if (renderer != null)
+            
+            if (spawnedObject.TryGetComponent<Renderer>(out var renderer))
                 renderer.sharedMaterial = originalMaterial;
         }
 
